@@ -53,7 +53,7 @@ jobs:
         working-directory: frontend
 
       - name: Build Web Release
-        run: flutter build web --release
+        run: flutter build web --release --dart-define=API_BASE_URL=${{ secrets.API_BASE_URL }}
         working-directory: frontend
 
       - name: Create Cloudflare Pages Project (if not exists)

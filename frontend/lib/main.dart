@@ -10,8 +10,13 @@ import 'views/dashboard_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  const String rawBaseUrl = String.fromEnvironment('API_BASE_URL');
 
-  final apiClient = ApiClient(baseUrl: 'http://localhost:8787/');
+  final String apiBaseUrl = rawBaseUrl.isNotEmpty
+      ? rawBaseUrl
+      : 'http://localhost:8087';
+
+  final apiClient = ApiClient(baseUrl: apiBaseUrl);
 
   // Register controllers globally
   Get.put(AuthController(apiClient: apiClient));
