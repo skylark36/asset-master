@@ -106,9 +106,17 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
             return holding?.currency ?? controller.selectedPortfolio.value?.currency ?? 'USD';
           }
 
+          final screenWidth = MediaQuery.of(context).size.width;
+          final isMobile = screenWidth < 700;
+
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 16,
+              bottom: isMobile ? 80 : 16,
+            ),
             child: Center(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 600),
@@ -218,7 +226,7 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        '${asset.quantity.toStringAsFixed(asset.quantity % 1 == 0 ? 0 : 2)} shares @ $currencySym${asset.purchasePrice.toStringAsFixed(2)}',
+                                        '${asset.quantity.toStringAsFixed(2)} shares @ $currencySym${asset.purchasePrice.toStringAsFixed(2)}',
                                         style: TextStyle(
                                           color: theme.textColorSecondary,
                                           fontSize: 10,

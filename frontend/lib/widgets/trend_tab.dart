@@ -12,6 +12,8 @@ class TrendTab extends GetView<PortfolioController> {
   @override
   Widget build(BuildContext context) {
     final theme = TDTheme.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 700;
 
     return Obx(() {
       if (controller.isTrendLoading.value && controller.trendData.isEmpty) {
@@ -83,7 +85,12 @@ class TrendTab extends GetView<PortfolioController> {
       final gainLossColor = isPositive ? theme.successNormalColor : theme.errorNormalColor;
 
       return SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+          top: 24,
+          bottom: isMobile ? 80 : 24,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

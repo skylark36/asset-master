@@ -167,9 +167,11 @@ class AssetDetailView extends StatelessWidget {
               : theme.errorNormalColor;
 
           return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: isMobile ? 12 : 24,
-              vertical: 16,
+            padding: EdgeInsets.only(
+              left: isMobile ? 12 : 24,
+              right: isMobile ? 12 : 24,
+              top: 16,
+              bottom: isMobile ? 80 : 16,
             ),
             child: Center(
               child: Container(
@@ -370,7 +372,7 @@ class AssetDetailView extends StatelessWidget {
                                 _buildMetricItem(
                                   context,
                                   'Shares Owned',
-                                  filteredQuantity.toString(),
+                                  filteredQuantity.toStringAsFixed(2),
                                 ),
                                 _buildMetricItem(
                                   context,
@@ -565,7 +567,7 @@ class AssetDetailView extends StatelessWidget {
                                             shape: TDTagShape.round,
                                           ),
                                           Text(
-                                            '${record.quantity} shares @ ${localCurrencyFormatter.format(record.purchasePrice)}',
+                                            '${record.quantity.toStringAsFixed(2)} shares @ ${localCurrencyFormatter.format(record.purchasePrice)}',
                                             style: TextStyle(
                                               color: theme.textColorSecondary,
                                               fontSize: 10,
@@ -674,7 +676,7 @@ class AssetDetailView extends StatelessWidget {
                                           builder: (context) => TDAlertDialog(
                                             title: 'Delete Record',
                                             content:
-                                                'Are you sure you want to delete this purchase record of ${record.quantity} ${record.symbol} shares?',
+                                                'Are you sure you want to delete this purchase record of ${record.quantity.toStringAsFixed(2)} ${record.symbol} shares?',
                                             backgroundColor:
                                                 theme.bgColorContainer,
                                             leftBtn: TDDialogButtonOptions(

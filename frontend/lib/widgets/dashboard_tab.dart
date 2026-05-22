@@ -22,9 +22,11 @@ class DashboardTab extends GetView<PortfolioController> {
       backgroundColor: theme.bgColorContainer,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(
-          horizontal: isMobile ? 12 : 24,
-          vertical: 16,
+        padding: EdgeInsets.only(
+          left: isMobile ? 12 : 24,
+          right: isMobile ? 12 : 24,
+          top: 16,
+          bottom: isMobile ? 80 : 16,
         ),
         child: Center(
           child: Container(

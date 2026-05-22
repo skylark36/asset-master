@@ -192,7 +192,7 @@ class AssetListTable extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  holding.quantity.toString(),
+                                  holding.quantity.toStringAsFixed(2),
                                   style: TextStyle(
                                     color: theme.textColorPrimary,
                                     fontWeight: FontWeight.bold,

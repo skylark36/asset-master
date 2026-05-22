@@ -57,7 +57,7 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
       final h = widget.editHolding!;
       _symbolController.text = h.symbol;
       _nameController.text = h.name;
-      _quantityController.text = h.quantity.toString();
+      _quantityController.text = h.quantity.toStringAsFixed(2);
       _priceController.text = h.purchasePrice.toString();
       _selectedDate = DateTime.fromMillisecondsSinceEpoch(h.purchaseDate);
       _verifiedSymbol = h.symbol.toUpperCase();
@@ -528,9 +528,11 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
         body: SafeArea(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(
-              horizontal: isMobile ? 12 : 16,
-              vertical: 16,
+            padding: EdgeInsets.only(
+              left: isMobile ? 12 : 16,
+              right: isMobile ? 12 : 16,
+              top: 16,
+              bottom: isMobile ? 80 : 16,
             ),
             child: Center(
               child: Container(

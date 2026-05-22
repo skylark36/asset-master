@@ -40,9 +40,17 @@ class FeedbackView extends GetView<PortfolioController> {
       ),
       body: SafeArea(
         child: Obx(() {
+          final screenWidth = MediaQuery.of(context).size.width;
+          final isMobile = screenWidth < 700;
+
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 16,
+              bottom: isMobile ? 80 : 16,
+            ),
             child: Center(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 600),

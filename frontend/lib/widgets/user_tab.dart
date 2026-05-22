@@ -21,9 +21,11 @@ class UserTab extends GetView<PortfolioController> {
 
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : 32,
-        vertical: 24,
+      padding: EdgeInsets.only(
+        left: isMobile ? 16 : 32,
+        right: isMobile ? 16 : 32,
+        top: 24,
+        bottom: isMobile ? 80 : 24,
       ),
       child: Center(
         child: Container(
