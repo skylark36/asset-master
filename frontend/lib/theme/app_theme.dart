@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Brand Colors (iOS 26 "Snow Glass" Light Theme)
@@ -72,7 +71,7 @@ class AppTheme {
         surface: Color(0xFFFFFFFF),
         error: error,
       ),
-      textTheme: GoogleFonts.outfitTextTheme(ThemeData.light().textTheme).copyWith(
+      textTheme: ThemeData.light().textTheme.copyWith(
         bodyLarge: const TextStyle(color: textPrimary, fontSize: 14, letterSpacing: -0.2),
         bodyMedium: const TextStyle(color: textSecondary, fontSize: 12, letterSpacing: -0.1),
       ),
