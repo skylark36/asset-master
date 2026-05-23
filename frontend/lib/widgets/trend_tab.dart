@@ -86,10 +86,10 @@ class TrendTab extends GetView<PortfolioController> {
 
       return SingleChildScrollView(
         padding: EdgeInsets.only(
-          left: 24,
-          right: 24,
-          top: 24,
-          bottom: isMobile ? 80 : 24,
+          left: isMobile ? 12 : 24,
+          right: isMobile ? 12 : 24,
+          top: 16,
+          bottom: isMobile ? 80 : 16,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

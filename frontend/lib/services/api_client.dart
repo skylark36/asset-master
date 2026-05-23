@@ -301,9 +301,19 @@ class ApiClient {
   }
 
   // Get portfolio historical trend data
-  Future<List<TrendDataPoint>> getTrendData(String portfolioId) async {
+  Future<List<TrendDataPoint>> getTrendData(
+    String portfolioId, {
+    String? broker,
+  }) async {
     try {
-      final response = await _dio.get('/api/portfolios/$portfolioId/trend');
+      final Map<String, dynamic> queryParams = {};
+      if (broker != null && broker != 'All') {
+        queryParams['broker'] = broker;
+      }
+      final response = await _dio.get(
+        '/api/portfolios/$portfolioId/trend',
+        queryParameters: queryParams,
+      );
       if (response.statusCode == 200 && response.data != null) {
         final List list = response.data['trend'] as List? ?? [];
         return list

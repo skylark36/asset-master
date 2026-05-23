@@ -14,7 +14,7 @@ void main() {
 
   final String apiBaseUrl = rawBaseUrl.isNotEmpty
       ? rawBaseUrl
-      : 'http://localhost:8087';
+      : 'http://localhost:8787';
 
   final apiClient = ApiClient(baseUrl: apiBaseUrl);
 

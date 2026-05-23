@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../controllers/portfolio_controller.dart';
 import '../widgets/add_asset_dialog.dart';
 import '../widgets/dashboard_tab.dart';
-import '../widgets/trend_tab.dart';
 import '../widgets/user_tab.dart';
 
 class DashboardView extends GetView<PortfolioController> {
@@ -47,7 +46,7 @@ class DashboardView extends GetView<PortfolioController> {
 
             return IndexedStack(
               index: controller.activeTab.value,
-              children: const [DashboardTab(), TrendTab(), UserTab()],
+              children: const [DashboardTab(), UserTab()],
             );
           }),
         ),
@@ -109,26 +108,6 @@ class DashboardView extends GetView<PortfolioController> {
               },
             ),
             TDBottomTabBarTabConfig(
-              tabText: 'Trend',
-              selectedIcon: Icon(
-                Icons.show_chart_rounded,
-                color: theme.brandNormalColor,
-              ),
-              unselectedIcon: Icon(
-                Icons.show_chart_rounded,
-                color: theme.textColorSecondary,
-              ),
-              selectTabTextStyle: TextStyle(
-                color: theme.brandNormalColor,
-                fontWeight: FontWeight.bold,
-              ),
-              unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
-              onTap: () {
-                controller.activeTab.value = 1;
-                controller.showFab.value = true;
-              },
-            ),
-            TDBottomTabBarTabConfig(
               tabText: 'Profile',
               selectedIcon: Icon(
                 Icons.person_2_rounded,
@@ -144,7 +123,7 @@ class DashboardView extends GetView<PortfolioController> {
               ),
               unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
               onTap: () {
-                controller.activeTab.value = 2;
+                controller.activeTab.value = 1;
                 controller.showFab.value = true;
               },
             ),

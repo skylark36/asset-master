@@ -215,7 +215,7 @@ class PortfolioController extends GetxController {
   Future<void> loadTrendData(String portfolioId) async {
     isTrendLoading.value = true;
     try {
-      final list = await apiClient.getTrendData(portfolioId);
+      final list = await apiClient.getTrendData(portfolioId, broker: selectedBroker.value);
       trendData.assignAll(list);
     } catch (e) {
       print('[PortfolioController Error loading trend] $e');
