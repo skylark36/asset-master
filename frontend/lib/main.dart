@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
         final auth = Get.find<AuthController>();
         if (!auth.isInitialized.value) {
           return const Scaffold(
-            backgroundColor: AppTheme.background,
             body: Center(
               child: CircularProgressIndicator(color: AppTheme.primary),
             ),

@@ -93,7 +93,7 @@ class _BrokerHoldingsPanelState extends State<BrokerHoldingsPanel>
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: theme.bgColorContainer,
-        borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
+        borderRadius: BorderRadius.circular(theme.radiusDefault),
         border: Border.all(color: theme.componentBorderColor, width: 1),
         boxShadow: [
           BoxShadow(
@@ -104,7 +104,7 @@ class _BrokerHoldingsPanelState extends State<BrokerHoldingsPanel>
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
+        borderRadius: BorderRadius.circular(theme.radiusDefault),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

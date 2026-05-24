@@ -15,22 +15,14 @@ class UserTab extends GetView<PortfolioController> {
   @override
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 700;
     final theme = TDTheme.of(context);
 
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.only(
-        left: isMobile ? 12 : 24,
-        right: isMobile ? 12 : 24,
-        top: 16,
-        bottom: isMobile ? 80 : 16,
-      ),
+      padding: EdgeInsets.all(theme.spacer16),
       child: Center(
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          padding: const EdgeInsets.symmetric(vertical: 24),
+          constraints: const BoxConstraints(maxWidth: 400),
           child: Obx(() {
             final user = authController.currentUser.value;
             final String name = user?.name ?? 'User';
@@ -47,9 +39,7 @@ class UserTab extends GetView<PortfolioController> {
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(
                     color: theme.bgColorContainer,
-                    borderRadius: BorderRadius.circular(
-                      theme.radiusMap['large'] ?? 12,
-                    ),
+                    borderRadius: BorderRadius.circular(theme.radiusLarge),
                     border: Border.all(
                       color: theme.componentBorderColor,
                       width: 1,
@@ -153,15 +143,14 @@ class UserTab extends GetView<PortfolioController> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                SizedBox(height: theme.spacer16),
 
                 // 2. Navigation Entries
                 Container(
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: theme.bgColorContainer,
-                    borderRadius: BorderRadius.circular(
-                      theme.radiusMap['large'] ?? 12,
-                    ),
+                    borderRadius: BorderRadius.circular(theme.radiusLarge),
                     border: Border.all(
                       color: theme.componentBorderColor,
                       width: 1,
@@ -481,40 +470,11 @@ class UserTab extends GetView<PortfolioController> {
     required VoidCallback onTap,
     Widget? trailing,
   }) {
-    final theme = TDTheme.of(context);
+    // final theme = TDTheme.of(context);
     return TDCell(
       title: title,
       description: subtitle,
-      style: TDCellStyle(
-        backgroundColor: Colors.transparent,
-        clickBackgroundColor: theme.componentBorderColor.withValues(
-          alpha: 0.05,
-        ),
-        titleStyle: TextStyle(
-          color: theme.textColorPrimary,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          letterSpacing: -0.2,
-        ),
-        descriptionStyle: TextStyle(
-          color: theme.textColorSecondary,
-          fontSize: 12,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
-      ),
-      leftIconWidget: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: iconColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: iconColor.withValues(alpha: 0.25),
-            width: 1,
-          ),
-        ),
-        child: Icon(icon, color: iconColor, size: 22),
-      ),
-      noteWidget: trailing,
+      leftIcon: icon,
       arrow: true,
       onClick: (_) => onTap(),
     );
