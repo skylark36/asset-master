@@ -80,54 +80,60 @@ class DashboardView extends GetView<PortfolioController> {
       }),
 
       bottomNavigationBar: Obx(() {
-        return TDBottomTabBar(
-          TDBottomTabBarBasicType.iconText,
-          currentIndex: controller.activeTab.value,
-          backgroundColor: theme.bgColorContainer,
-          componentType: TDBottomTabBarComponentType.normal,
-          showTopBorder: true,
-          navigationTabs: [
-            TDBottomTabBarTabConfig(
-              tabText: 'Overview',
-              selectedIcon: Icon(
-                Icons.grid_view_rounded,
-                color: theme.brandNormalColor,
-              ),
-              unselectedIcon: Icon(
-                Icons.grid_view_rounded,
-                color: theme.textColorSecondary,
-              ),
-              selectTabTextStyle: TextStyle(
-                color: theme.brandNormalColor,
-                fontWeight: FontWeight.bold,
-              ),
-              unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
-              onTap: () {
-                controller.activeTab.value = 0;
-                controller.showFab.value = true;
-              },
+        return Container(
+          color: theme.bgColorContainer,
+          child: SafeArea(
+            top: false,
+            child: TDBottomTabBar(
+              TDBottomTabBarBasicType.iconText,
+              currentIndex: controller.activeTab.value,
+              backgroundColor: theme.bgColorContainer,
+              componentType: TDBottomTabBarComponentType.normal,
+              showTopBorder: true,
+              navigationTabs: [
+                TDBottomTabBarTabConfig(
+                  tabText: 'Overview',
+                  selectedIcon: Icon(
+                    Icons.grid_view_rounded,
+                    color: theme.brandNormalColor,
+                  ),
+                  unselectedIcon: Icon(
+                    Icons.grid_view_rounded,
+                    color: theme.textColorSecondary,
+                  ),
+                  selectTabTextStyle: TextStyle(
+                    color: theme.brandNormalColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
+                  onTap: () {
+                    controller.activeTab.value = 0;
+                    controller.showFab.value = true;
+                  },
+                ),
+                TDBottomTabBarTabConfig(
+                  tabText: 'Profile',
+                  selectedIcon: Icon(
+                    Icons.person_2_rounded,
+                    color: theme.brandNormalColor,
+                  ),
+                  unselectedIcon: Icon(
+                    Icons.person_2_rounded,
+                    color: theme.textColorSecondary,
+                  ),
+                  selectTabTextStyle: TextStyle(
+                    color: theme.brandNormalColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
+                  onTap: () {
+                    controller.activeTab.value = 1;
+                    controller.showFab.value = true;
+                  },
+                ),
+              ],
             ),
-            TDBottomTabBarTabConfig(
-              tabText: 'Profile',
-              selectedIcon: Icon(
-                Icons.person_2_rounded,
-                color: theme.brandNormalColor,
-              ),
-              unselectedIcon: Icon(
-                Icons.person_2_rounded,
-                color: theme.textColorSecondary,
-              ),
-              selectTabTextStyle: TextStyle(
-                color: theme.brandNormalColor,
-                fontWeight: FontWeight.bold,
-              ),
-              unselectTabTextStyle: TextStyle(color: theme.textColorSecondary),
-              onTap: () {
-                controller.activeTab.value = 1;
-                controller.showFab.value = true;
-              },
-            ),
-          ],
+          ),
         );
       }),
     );
