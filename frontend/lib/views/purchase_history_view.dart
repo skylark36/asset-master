@@ -18,7 +18,9 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
   @override
   void initState() {
     super.initState();
-    _searchTextController = TextEditingController(text: controller.purchaseHistorySearchQuery.value);
+    _searchTextController = TextEditingController(
+      text: controller.purchaseHistorySearchQuery.value,
+    );
   }
 
   @override
@@ -41,7 +43,11 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
         backgroundColor: theme.bgColorContainer,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded, color: theme.textColorPrimary, size: 16),
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: theme.textColorPrimary,
+            size: 16,
+          ),
           onPressed: () => Get.back(),
         ),
         title: Text(
@@ -57,11 +63,13 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
         actions: [
           Obx(() {
             final assets = controller.assets;
-            final searchQuery = controller.purchaseHistorySearchQuery.value.toLowerCase().trim();
+            final searchQuery = controller.purchaseHistorySearchQuery.value
+                .toLowerCase()
+                .trim();
             final filteredCount = assets.where((asset) {
               return asset.symbol.toLowerCase().contains(searchQuery) ||
-                     asset.name.toLowerCase().contains(searchQuery) ||
-                     asset.broker.toLowerCase().contains(searchQuery);
+                  asset.name.toLowerCase().contains(searchQuery) ||
+                  asset.broker.toLowerCase().contains(searchQuery);
             }).length;
 
             return Padding(
@@ -79,199 +87,165 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
-          child: Container(
-            color: theme.componentBorderColor,
-            height: 1,
-          ),
+          child: Container(color: theme.componentBorderColor, height: 1),
         ),
       ),
-      body: SafeArea(
-        child: Obx(() {
-          final assets = controller.assets;
-          
-          final searchQuery = controller.purchaseHistorySearchQuery.value.toLowerCase().trim();
-          final filteredAssets = assets.where((asset) {
-            return asset.symbol.toLowerCase().contains(searchQuery) ||
-                   asset.name.toLowerCase().contains(searchQuery) ||
-                   asset.broker.toLowerCase().contains(searchQuery);
-          }).toList();
+      body: Obx(() {
+        final assets = controller.assets;
 
-          // Sort by purchaseDate descending (newest first)
-          filteredAssets.sort((a, b) => b.purchaseDate.compareTo(a.purchaseDate));
+        final searchQuery = controller.purchaseHistorySearchQuery.value
+            .toLowerCase()
+            .trim();
+        final filteredAssets = assets.where((asset) {
+          return asset.symbol.toLowerCase().contains(searchQuery) ||
+              asset.name.toLowerCase().contains(searchQuery) ||
+              asset.broker.toLowerCase().contains(searchQuery);
+        }).toList();
 
-          String getAssetCurrency(String symbol) {
-            final holding = controller.valuation.value?.holdings.firstWhereOrNull(
-              (h) => h.symbol.toLowerCase() == symbol.toLowerCase(),
-            );
-            return holding?.currency ?? controller.selectedPortfolio.value?.currency ?? 'USD';
-          }
+        // Sort by purchaseDate descending (newest first)
+        filteredAssets.sort((a, b) => b.purchaseDate.compareTo(a.purchaseDate));
 
-          final screenWidth = MediaQuery.of(context).size.width;
-          final isMobile = screenWidth < 700;
+        String getAssetCurrency(String symbol) {
+          final holding = controller.valuation.value?.holdings.firstWhereOrNull(
+            (h) => h.symbol.toLowerCase() == symbol.toLowerCase(),
+          );
+          return holding?.currency ??
+              controller.selectedPortfolio.value?.currency ??
+              'USD';
+        }
 
-          return SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 16,
-              bottom: isMobile ? 80 : 16,
-            ),
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 600),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Search Bar
-                    TDInput(
-                      controller: _searchTextController,
-                      onChanged: (value) => controller.purchaseHistorySearchQuery.value = value,
-                      hintText: 'Search by ticker, name, or broker...',
-                      leftIcon: Icon(Icons.search_rounded, color: theme.textColorSecondary, size: 16),
-                      textStyle: TextStyle(
-                        color: theme.textColorPrimary,
-                        fontSize: 12,
-                      ),
-                      hintTextStyle: TextStyle(
-                        color: theme.textColorPlaceholder,
-                        fontSize: 12,
-                      ),
-                      backgroundColor: Colors.transparent,
-                      showBottomDivider: true,
-                      needClear: true,
-                      onClearTap: () {
-                        _searchTextController.clear();
-                        controller.purchaseHistorySearchQuery.value = '';
-                      },
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isMobile = screenWidth < 700;
+
+        return SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: isMobile ? 80 : 16,
+          ),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Search Bar
+                  TDInput(
+                    controller: _searchTextController,
+                    onChanged: (value) =>
+                        controller.purchaseHistorySearchQuery.value = value,
+                    hintText: 'Search by ticker, name, or broker...',
+                    leftIcon: Icon(
+                      Icons.search_rounded,
+                      color: theme.textColorSecondary,
+                      size: 16,
                     ),
-                    const SizedBox(height: 16),
-                    
-                    // List
-                    if (filteredAssets.isEmpty) ...[
-                      Container(
-                        padding: const EdgeInsets.all(28),
-                        decoration: BoxDecoration(
-                          color: theme.bgColorContainer,
-                          borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
-                          border: Border.all(color: theme.componentBorderColor),
+                    textStyle: TextStyle(
+                      color: theme.textColorPrimary,
+                      fontSize: 12,
+                    ),
+                    hintTextStyle: TextStyle(
+                      color: theme.textColorPlaceholder,
+                      fontSize: 12,
+                    ),
+                    backgroundColor: Colors.transparent,
+                    showBottomDivider: true,
+                    needClear: true,
+                    onClearTap: () {
+                      _searchTextController.clear();
+                      controller.purchaseHistorySearchQuery.value = '';
+                    },
+                  ),
+                  const SizedBox(height: 16),
+
+                  // List
+                  if (filteredAssets.isEmpty) ...[
+                    Container(
+                      padding: const EdgeInsets.all(28),
+                      decoration: BoxDecoration(
+                        color: theme.bgColorContainer,
+                        borderRadius: BorderRadius.circular(
+                          theme.radiusMap['medium'] ?? 8,
                         ),
-                        child: Center(
-                          child: Text(
-                            'No matching purchase records found.',
-                            style: TextStyle(color: theme.textColorSecondary, fontSize: 11),
+                        border: Border.all(color: theme.componentBorderColor),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'No matching purchase records found.',
+                          style: TextStyle(
+                            color: theme.textColorSecondary,
+                            fontSize: 11,
                           ),
                         ),
                       ),
-                    ] else ...[
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: theme.bgColorContainer,
-                          borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
-                          border: Border.all(color: theme.componentBorderColor, width: 1),
+                    ),
+                  ] else ...[
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: theme.bgColorContainer,
+                        borderRadius: BorderRadius.circular(
+                          theme.radiusMap['medium'] ?? 8,
                         ),
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: filteredAssets.length,
-                          separatorBuilder: (context, index) => Divider(
-                            color: theme.componentBorderColor,
-                            height: 16,
-                          ),
-                          itemBuilder: (context, index) {
-                            final asset = filteredAssets[index];
-                            final dateStr = formatDate(asset.purchaseDate);
-                            final totalCost = asset.quantity * asset.purchasePrice;
-                            final currencyCode = getAssetCurrency(asset.symbol);
-                            final currencySym = AppTheme.getCurrencySymbol(currencyCode);
-                            
-                            return Row(
-                              children: [
-                                // Ticker Symbol Badge
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: theme.brandLightColor,
-                                    borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
+                        border: Border.all(
+                          color: theme.componentBorderColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: filteredAssets.length,
+                        separatorBuilder: (context, index) => Divider(
+                          color: theme.componentBorderColor,
+                          height: 16,
+                        ),
+                        itemBuilder: (context, index) {
+                          final asset = filteredAssets[index];
+                          final dateStr = formatDate(asset.purchaseDate);
+                          final totalCost =
+                              asset.quantity * asset.purchasePrice;
+                          final currencyCode = getAssetCurrency(asset.symbol);
+                          final currencySym = AppTheme.getCurrencySymbol(
+                            currencyCode,
+                          );
+
+                          return Row(
+                            children: [
+                              // Ticker Symbol Badge
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: theme.brandLightColor,
+                                  borderRadius: BorderRadius.circular(
+                                    theme.radiusMap['medium'] ?? 8,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      asset.symbol,
-                                      style: TextStyle(
-                                        color: theme.brandNormalColor,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w900,
-                                      ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    asset.symbol,
+                                    style: TextStyle(
+                                      color: theme.brandNormalColor,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w900,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 10),
-                                
-                                // Details
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        asset.name,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: theme.textColorPrimary,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        '${asset.quantity.toStringAsFixed(2)} shares @ $currencySym${asset.purchasePrice.toStringAsFixed(2)}',
-                                        style: TextStyle(
-                                          color: theme.textColorSecondary,
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            asset.broker,
-                                            style: TextStyle(
-                                              color: theme.brandNormalColor,
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 6),
-                                          Text(
-                                            '•',
-                                            style: TextStyle(
-                                              color: theme.textColorPlaceholder,
-                                              fontSize: 9,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 6),
-                                          Text(
-                                            dateStr,
-                                            style: TextStyle(
-                                              color: theme.textColorPlaceholder,
-                                              fontSize: 9,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                
-                                // Price
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                              ),
+                              const SizedBox(width: 10),
+
+                              // Details
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '$currencySym${totalCost.toStringAsFixed(2)}',
+                                      asset.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: theme.textColorPrimary,
                                         fontWeight: FontWeight.bold,
@@ -280,27 +254,80 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
                                     ),
                                     const SizedBox(height: 2),
                                     Text(
-                                      'Total Cost',
+                                      '${asset.quantity.toStringAsFixed(2)} shares @ $currencySym${asset.purchasePrice.toStringAsFixed(2)}',
                                       style: TextStyle(
                                         color: theme.textColorSecondary,
-                                        fontSize: 9,
+                                        fontSize: 10,
                                       ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          asset.broker,
+                                          style: TextStyle(
+                                            color: theme.brandNormalColor,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          '•',
+                                          style: TextStyle(
+                                            color: theme.textColorPlaceholder,
+                                            fontSize: 9,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          dateStr,
+                                          style: TextStyle(
+                                            color: theme.textColorPlaceholder,
+                                            fontSize: 9,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            );
-                          },
-                        ),
+                              ),
+                              const SizedBox(width: 10),
+
+                              // Price
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '$currencySym${totalCost.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      color: theme.textColorPrimary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'Total Cost',
+                                    style: TextStyle(
+                                      color: theme.textColorSecondary,
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                    ],
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

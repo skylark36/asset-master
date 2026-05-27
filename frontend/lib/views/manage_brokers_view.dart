@@ -134,83 +134,205 @@ class _ManageBrokersViewState extends State<ManageBrokersView> {
           child: Container(color: theme.componentBorderColor, height: 1),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.only(
-            left: isMobile ? 12 : 16,
-            right: isMobile ? 12 : 16,
-            top: 16,
-            bottom: isMobile ? 80 : 16,
-          ),
-          child: Center(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Preset/System default brokers section
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: theme.bgColorContainer,
-                      borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
-                      border: Border.all(color: theme.componentBorderColor, width: 1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.03),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.only(
+          left: isMobile ? 12 : 16,
+          right: isMobile ? 12 : 16,
+          top: 16,
+          bottom: isMobile ? 80 : 16,
+        ),
+        child: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Preset/System default brokers section
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: theme.bgColorContainer,
+                    borderRadius: BorderRadius.circular(
+                      theme.radiusMap['medium'] ?? 8,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.account_balance_outlined,
-                              color: theme.brandNormalColor,
-                              size: 16,
+                    border: Border.all(
+                      color: theme.componentBorderColor,
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.03),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.account_balance_outlined,
+                            color: theme.brandNormalColor,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'PRESET BROKERS',
+                            style: TextStyle(
+                              color: theme.textColorPrimary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              letterSpacing: 1.2,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'PRESET BROKERS',
-                              style: TextStyle(
-                                color: theme.textColorPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                letterSpacing: 1.2,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'These standard brokers are built into the platform and are always available for assignation:',
+                        style: TextStyle(
+                          color: theme.textColorSecondary,
+                          fontSize: 11,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: PortfolioController.presetBrokers.length,
+                        separatorBuilder: (context, index) => Divider(
+                          color: theme.componentBorderColor,
+                          height: 8,
+                        ),
+                        itemBuilder: (context, index) {
+                          final broker =
+                              PortfolioController.presetBrokers[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  broker,
+                                  style: TextStyle(
+                                    color: theme.textColorPrimary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 1,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: theme.bgColorSecondaryContainer,
+                                    borderRadius: BorderRadius.circular(
+                                      theme.radiusMap['small'] ?? 4,
+                                    ),
+                                    border: Border.all(
+                                      color: theme.componentBorderColor,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Preset',
+                                    style: TextStyle(
+                                      color: theme.textColorSecondary,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Custom brokers management section
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: theme.bgColorContainer,
+                    borderRadius: BorderRadius.circular(
+                      theme.radiusMap['medium'] ?? 8,
+                    ),
+                    border: Border.all(
+                      color: theme.componentBorderColor,
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.03),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.playlist_add_check_rounded,
+                            color: theme.brandNormalColor,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'CUSTOM BROKERS',
+                            style: TextStyle(
+                              color: theme.textColorPrimary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Obx(() {
+                        final list = _controller.customBrokers;
+                        if (list.isEmpty) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: Center(
+                              child: Text(
+                                'No custom brokers added yet.',
+                                style: TextStyle(
+                                  color: theme.textColorSecondary,
+                                  fontSize: 11,
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'These standard brokers are built into the platform and are always available for assignation:',
-                          style: TextStyle(
-                            color: theme.textColorSecondary,
-                            fontSize: 11,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        ListView.separated(
+                          );
+                        }
+                        return ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: PortfolioController.presetBrokers.length,
+                          itemCount: list.length,
                           separatorBuilder: (context, index) => Divider(
                             color: theme.componentBorderColor,
                             height: 8,
                           ),
                           itemBuilder: (context, index) {
-                            final broker = PortfolioController.presetBrokers[index];
+                            final broker = list[index];
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                vertical: 6.0,
+                                vertical: 2.0,
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     broker,
@@ -220,180 +342,68 @@ class _ManageBrokersViewState extends State<ManageBrokersView> {
                                       fontSize: 13,
                                     ),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 1,
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.delete_outline_rounded,
+                                      color: theme.errorNormalColor,
+                                      size: 16,
                                     ),
-                                    decoration: BoxDecoration(
-                                      color: theme.bgColorSecondaryContainer,
-                                      borderRadius: BorderRadius.circular(theme.radiusMap['small'] ?? 4),
-                                      border: Border.all(
-                                        color: theme.componentBorderColor,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Preset',
-                                      style: TextStyle(
-                                        color: theme.textColorSecondary,
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                    onPressed: () => _deleteBroker(broker),
+                                    tooltip: 'Delete custom broker',
                                   ),
                                 ],
                               ),
                             );
                           },
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      }),
+                      Divider(color: theme.componentBorderColor, height: 20),
 
-                  const SizedBox(height: 16),
-
-                  // Custom brokers management section
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: theme.bgColorContainer,
-                      borderRadius: BorderRadius.circular(theme.radiusMap['medium'] ?? 8),
-                      border: Border.all(color: theme.componentBorderColor, width: 1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.03),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
+                      // Form to add custom broker
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Icon(
-                              Icons.playlist_add_check_rounded,
-                              color: theme.brandNormalColor,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'CUSTOM BROKERS',
-                              style: TextStyle(
-                                color: theme.textColorPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                letterSpacing: 1.2,
+                            TDInput(
+                              controller: _newBrokerController,
+                              leftIcon: Icon(
+                                Icons.add_business_outlined,
+                                color: theme.textColorSecondary,
+                                size: 16,
                               ),
+                              hintText: 'e.g. TD Ameritrade, Webull',
+                              textStyle: TextStyle(
+                                color: theme.textColorPrimary,
+                                fontSize: 12,
+                              ),
+                              hintTextStyle: TextStyle(
+                                color: theme.textColorPlaceholder,
+                                fontSize: 12,
+                              ),
+                              additionInfo: _brokerError,
+                              additionInfoColor: theme.errorNormalColor,
+                              showBottomDivider: true,
+                              backgroundColor: Colors.transparent,
+                              onSubmitted: (_) => _addBroker(),
+                            ),
+                            const SizedBox(height: 12),
+                            TDButton(
+                              onTap: _addBroker,
+                              size: TDButtonSize.medium,
+                              type: TDButtonType.fill,
+                              theme: TDButtonTheme.primary,
+                              isBlock: true,
+                              icon: Icons.add,
+                              text: 'Add Broker',
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
-                        Obx(() {
-                          final list = _controller.customBrokers;
-                          if (list.isEmpty) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Center(
-                                child: Text(
-                                  'No custom brokers added yet.',
-                                  style: TextStyle(
-                                    color: theme.textColorSecondary,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: list.length,
-                            separatorBuilder: (context, index) => Divider(
-                              color: theme.componentBorderColor,
-                              height: 8,
-                            ),
-                            itemBuilder: (context, index) {
-                              final broker = list[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 2.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      broker,
-                                      style: TextStyle(
-                                        color: theme.textColorPrimary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete_outline_rounded,
-                                        color: theme.errorNormalColor,
-                                        size: 16,
-                                      ),
-                                      onPressed: () => _deleteBroker(broker),
-                                      tooltip: 'Delete custom broker',
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }),
-                        Divider(color: theme.componentBorderColor, height: 20),
-
-                        // Form to add custom broker
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              TDInput(
-                                controller: _newBrokerController,
-                                leftIcon: Icon(
-                                  Icons.add_business_outlined,
-                                  color: theme.textColorSecondary,
-                                  size: 16,
-                                ),
-                                hintText: 'e.g. TD Ameritrade, Webull',
-                                textStyle: TextStyle(
-                                  color: theme.textColorPrimary,
-                                  fontSize: 12,
-                                ),
-                                hintTextStyle: TextStyle(
-                                  color: theme.textColorPlaceholder,
-                                  fontSize: 12,
-                                ),
-                                additionInfo: _brokerError,
-                                additionInfoColor: theme.errorNormalColor,
-                                showBottomDivider: true,
-                                backgroundColor: Colors.transparent,
-                                onSubmitted: (_) => _addBroker(),
-                              ),
-                              const SizedBox(height: 12),
-                              TDButton(
-                                onTap: _addBroker,
-                                size: TDButtonSize.medium,
-                                type: TDButtonType.fill,
-                                theme: TDButtonTheme.primary,
-                                isBlock: true,
-                                icon: Icons.add,
-                                text: 'Add Broker',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

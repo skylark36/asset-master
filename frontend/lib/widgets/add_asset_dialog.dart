@@ -525,106 +525,36 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
             child: Container(color: theme.componentBorderColor, height: 1),
           ),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(
-              left: isMobile ? 12 : 16,
-              right: isMobile ? 12 : 16,
-              top: 16,
-              bottom: isMobile ? 80 : 16,
-            ),
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 600),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      CompositedTransformTarget(
-                        link: _layerLink,
-                        child: FormField<String>(
-                          validator: (val) {
-                            final text = _symbolController.text;
-                            if (text.trim().isEmpty) return 'Required';
-                            if (_verifiedSymbol == null ||
-                                text.trim().toUpperCase() != _verifiedSymbol) {
-                              return 'Select from search';
-                            }
-                            return null;
-                          },
-                          builder: (state) => TDInput(
-                            controller: _symbolController,
-                            textStyle: TextStyle(
-                              color: theme.textColorPrimary,
-                              fontSize: 13,
-                            ),
-                            hintTextStyle: TextStyle(
-                              color: theme.textColorPlaceholder,
-                              fontSize: 13,
-                            ),
-                            readOnly:
-                                widget.editHolding != null ||
-                                widget.prefilledSymbol != null,
-                            hintText: 'e.g. AAPL',
-                            leftLabel: 'Symbol',
-                            backgroundColor: Colors.transparent,
-                            showBottomDivider: true,
-                            additionInfo: state.hasError
-                                ? state.errorText!
-                                : '',
-                            additionInfoColor: theme.errorNormalColor,
-                            onChanged: (val) {
-                              state.didChange(val);
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      FormField<String>(
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            left: isMobile ? 12 : 16,
+            right: isMobile ? 12 : 16,
+            top: 16,
+            bottom: isMobile ? 80 : 16,
+          ),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CompositedTransformTarget(
+                      link: _layerLink,
+                      child: FormField<String>(
                         validator: (val) {
-                          final text = _nameController.text;
-                          return text.trim().isEmpty ? 'Required' : null;
-                        },
-                        builder: (state) => TDInput(
-                          controller: _nameController,
-                          textStyle: TextStyle(
-                            color: theme.textColorPrimary,
-                            fontSize: 13,
-                          ),
-                          hintTextStyle: TextStyle(
-                            color: theme.textColorPlaceholder,
-                            fontSize: 13,
-                          ),
-                          readOnly: true,
-                          hintText: widget.editHolding != null
-                              ? ''
-                              : 'Select from search',
-                          leftLabel: 'Name',
-                          backgroundColor: Colors.transparent,
-                          showBottomDivider: true,
-                          additionInfo: state.hasError ? state.errorText! : '',
-                          additionInfoColor: theme.errorNormalColor,
-                          onChanged: (val) {
-                            state.didChange(val);
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      FormField<String>(
-                        validator: (val) {
-                          final text = _quantityController.text;
+                          final text = _symbolController.text;
                           if (text.trim().isEmpty) return 'Required';
-                          if (double.tryParse(text) == null)
-                            return 'Invalid qty';
-                          if (double.parse(text) <= 0) return 'Must be > 0';
+                          if (_verifiedSymbol == null ||
+                              text.trim().toUpperCase() != _verifiedSymbol) {
+                            return 'Select from search';
+                          }
                           return null;
                         },
                         builder: (state) => TDInput(
-                          controller: _quantityController,
+                          controller: _symbolController,
                           textStyle: TextStyle(
                             color: theme.textColorPrimary,
                             fontSize: 13,
@@ -633,11 +563,11 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
                             color: theme.textColorPlaceholder,
                             fontSize: 13,
                           ),
-                          inputType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          hintText: 'e.g. 10.5',
-                          leftLabel: 'Qty',
+                          readOnly:
+                              widget.editHolding != null ||
+                              widget.prefilledSymbol != null,
+                          hintText: 'e.g. AAPL',
+                          leftLabel: 'Symbol',
                           backgroundColor: Colors.transparent,
                           showBottomDivider: true,
                           additionInfo: state.hasError ? state.errorText! : '',
@@ -647,19 +577,180 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 10),
+                    ),
+                    const SizedBox(height: 10),
 
+                    FormField<String>(
+                      validator: (val) {
+                        final text = _nameController.text;
+                        return text.trim().isEmpty ? 'Required' : null;
+                      },
+                      builder: (state) => TDInput(
+                        controller: _nameController,
+                        textStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                        ),
+                        hintTextStyle: TextStyle(
+                          color: theme.textColorPlaceholder,
+                          fontSize: 13,
+                        ),
+                        readOnly: true,
+                        hintText: widget.editHolding != null
+                            ? ''
+                            : 'Select from search',
+                        leftLabel: 'Name',
+                        backgroundColor: Colors.transparent,
+                        showBottomDivider: true,
+                        additionInfo: state.hasError ? state.errorText! : '',
+                        additionInfoColor: theme.errorNormalColor,
+                        onChanged: (val) {
+                          state.didChange(val);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    FormField<String>(
+                      validator: (val) {
+                        final text = _quantityController.text;
+                        if (text.trim().isEmpty) return 'Required';
+                        if (double.tryParse(text) == null) return 'Invalid qty';
+                        if (double.parse(text) <= 0) return 'Must be > 0';
+                        return null;
+                      },
+                      builder: (state) => TDInput(
+                        controller: _quantityController,
+                        textStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                        ),
+                        hintTextStyle: TextStyle(
+                          color: theme.textColorPlaceholder,
+                          fontSize: 13,
+                        ),
+                        inputType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        hintText: 'e.g. 10.5',
+                        leftLabel: 'Qty',
+                        backgroundColor: Colors.transparent,
+                        showBottomDivider: true,
+                        additionInfo: state.hasError ? state.errorText! : '',
+                        additionInfoColor: theme.errorNormalColor,
+                        onChanged: (val) {
+                          state.didChange(val);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    FormField<String>(
+                      validator: (val) {
+                        final text = _priceController.text;
+                        if (text.trim().isEmpty) return 'Required';
+                        if (double.tryParse(text) == null)
+                          return 'Invalid price';
+                        if (double.parse(text) < 0) return 'Must be >= 0';
+                        return null;
+                      },
+                      builder: (state) => TDInput(
+                        controller: _priceController,
+                        textStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                        ),
+                        hintTextStyle: TextStyle(
+                          color: theme.textColorPlaceholder,
+                          fontSize: 13,
+                        ),
+                        inputType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        hintText: 'e.g. 175.20',
+                        leftLabel:
+                            'Price (${AppTheme.getCurrencySymbol(_controller.selectedPortfolio.value?.currency ?? 'USD')})',
+                        backgroundColor: Colors.transparent,
+                        showBottomDivider: true,
+                        additionInfo: state.hasError ? state.errorText! : '',
+                        additionInfoColor: theme.errorNormalColor,
+                        onChanged: (val) {
+                          state.didChange(val);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    TDCell(
+                      title: 'Purchase Date',
+                      note: DateFormat('yyyy-MM-dd').format(_selectedDate),
+                      arrow: false,
+                      showBottomBorder: true,
+                      onClick: (_) => _selectDate(context),
+                      style: TDCellStyle(
+                        backgroundColor: Colors.transparent,
+                        titleStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                        ),
+                        noteStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 16,
+                        ),
+                        borderedColor: theme.componentBorderColor,
+                      ),
+                      rightIconWidget: Icon(
+                        Icons.calendar_today,
+                        color: theme.brandNormalColor,
+                        size: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    TDCell(
+                      title: 'Broker / Custodian',
+                      note: _selectedBroker,
+                      arrow: false,
+                      showBottomBorder: true,
+                      onClick: (_) => _showBrokerPicker(context),
+                      style: TDCellStyle(
+                        backgroundColor: Colors.transparent,
+                        titleStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                        ),
+                        noteStyle: TextStyle(
+                          color: theme.textColorPrimary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 16,
+                        ),
+                        borderedColor: theme.componentBorderColor,
+                      ),
+                      rightIconWidget: Icon(
+                        Icons.arrow_drop_down,
+                        color: theme.textColorSecondary,
+                        size: 22,
+                      ),
+                    ),
+                    if (_selectedBroker == 'Other') ...[
+                      const SizedBox(height: 10),
                       FormField<String>(
                         validator: (val) {
-                          final text = _priceController.text;
+                          final text = _customBrokerController.text;
                           if (text.trim().isEmpty) return 'Required';
-                          if (double.tryParse(text) == null)
-                            return 'Invalid price';
-                          if (double.parse(text) < 0) return 'Must be >= 0';
                           return null;
                         },
                         builder: (state) => TDInput(
-                          controller: _priceController,
+                          controller: _customBrokerController,
                           textStyle: TextStyle(
                             color: theme.textColorPrimary,
                             fontSize: 13,
@@ -668,12 +759,8 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
                             color: theme.textColorPlaceholder,
                             fontSize: 13,
                           ),
-                          inputType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          hintText: 'e.g. 175.20',
-                          leftLabel:
-                              'Price (${AppTheme.getCurrencySymbol(_controller.selectedPortfolio.value?.currency ?? 'USD')})',
+                          hintText: 'e.g. Coinbase',
+                          leftLabel: 'Broker Name',
                           backgroundColor: Colors.transparent,
                           showBottomDivider: true,
                           additionInfo: state.hasError ? state.errorText! : '',
@@ -682,125 +769,31 @@ class _AddAssetDialogState extends State<AddAssetDialog> {
                             state.didChange(val);
                           },
                         ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      TDCell(
-                        title: 'Purchase Date',
-                        note: DateFormat('yyyy-MM-dd').format(_selectedDate),
-                        arrow: false,
-                        showBottomBorder: true,
-                        onClick: (_) => _selectDate(context),
-                        style: TDCellStyle(
-                          backgroundColor: Colors.transparent,
-                          titleStyle: TextStyle(
-                            color: theme.textColorPrimary,
-                            fontSize: 13,
-                          ),
-                          noteStyle: TextStyle(
-                            color: theme.textColorPrimary,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 16,
-                          ),
-                          borderedColor: theme.componentBorderColor,
-                        ),
-                        rightIconWidget: Icon(
-                          Icons.calendar_today,
-                          color: theme.brandNormalColor,
-                          size: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      TDCell(
-                        title: 'Broker / Custodian',
-                        note: _selectedBroker,
-                        arrow: false,
-                        showBottomBorder: true,
-                        onClick: (_) => _showBrokerPicker(context),
-                        style: TDCellStyle(
-                          backgroundColor: Colors.transparent,
-                          titleStyle: TextStyle(
-                            color: theme.textColorPrimary,
-                            fontSize: 13,
-                          ),
-                          noteStyle: TextStyle(
-                            color: theme.textColorPrimary,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 16,
-                          ),
-                          borderedColor: theme.componentBorderColor,
-                        ),
-                        rightIconWidget: Icon(
-                          Icons.arrow_drop_down,
-                          color: theme.textColorSecondary,
-                          size: 22,
-                        ),
-                      ),
-                      if (_selectedBroker == 'Other') ...[
-                        const SizedBox(height: 10),
-                        FormField<String>(
-                          validator: (val) {
-                            final text = _customBrokerController.text;
-                            if (text.trim().isEmpty) return 'Required';
-                            return null;
-                          },
-                          builder: (state) => TDInput(
-                            controller: _customBrokerController,
-                            textStyle: TextStyle(
-                              color: theme.textColorPrimary,
-                              fontSize: 13,
-                            ),
-                            hintTextStyle: TextStyle(
-                              color: theme.textColorPlaceholder,
-                              fontSize: 13,
-                            ),
-                            hintText: 'e.g. Coinbase',
-                            leftLabel: 'Broker Name',
-                            backgroundColor: Colors.transparent,
-                            showBottomDivider: true,
-                            additionInfo: state.hasError
-                                ? state.errorText!
-                                : '',
-                            additionInfoColor: theme.errorNormalColor,
-                            onChanged: (val) {
-                              state.didChange(val);
-                            },
-                          ),
-                        ),
-                      ],
-                      const SizedBox(height: 24),
-
-                      TDButton(
-                        onTap: _loading ? null : _submit,
-                        size: TDButtonSize.large,
-                        type: TDButtonType.fill,
-                        theme: TDButtonTheme.primary,
-                        text: widget.editHolding != null ? 'Save' : 'Add',
-                        isBlock: true,
-                        iconWidget: _loading
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
-                                  ),
-                                ),
-                              )
-                            : null,
                       ),
                     ],
-                  ),
+                    const SizedBox(height: 24),
+
+                    TDButton(
+                      onTap: _loading ? null : _submit,
+                      size: TDButtonSize.large,
+                      type: TDButtonType.fill,
+                      theme: TDButtonTheme.primary,
+                      text: widget.editHolding != null ? 'Save' : 'Add',
+                      isBlock: true,
+                      iconWidget: _loading
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -38,265 +38,262 @@ class FeedbackView extends GetView<PortfolioController> {
           child: Container(color: theme.componentBorderColor, height: 1),
         ),
       ),
-      body: SafeArea(
-        child: Obx(() {
-          final screenWidth = MediaQuery.of(context).size.width;
-          final isMobile = screenWidth < 700;
+      body: Obx(() {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isMobile = screenWidth < 700;
 
-          return SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 16,
-              bottom: isMobile ? 80 : 16,
-            ),
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 600),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: theme.bgColorContainer,
-                        borderRadius: BorderRadius.circular(
-                          theme.radiusMap['medium'] ?? 8,
-                        ),
-                        border: Border.all(
-                          color: theme.componentBorderColor,
-                          width: 1,
-                        ),
+        return SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: isMobile ? 80 : 16,
+          ),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: theme.bgColorContainer,
+                      borderRadius: BorderRadius.circular(
+                        theme.radiusMap['medium'] ?? 8,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (controller.feedbackSubmittedSuccess.value) ...[
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: theme.successNormalColor.withValues(
-                                  alpha: 0.1,
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  theme.radiusMap['default'] ?? 8,
-                                ),
-                                border: Border.all(
-                                  color: theme.successNormalColor.withValues(
-                                    alpha: 0.3,
-                                  ),
-                                ),
+                      border: Border.all(
+                        color: theme.componentBorderColor,
+                        width: 1,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (controller.feedbackSubmittedSuccess.value) ...[
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: theme.successNormalColor.withValues(
+                                alpha: 0.1,
                               ),
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.check_circle_outline_rounded,
-                                    color: theme.successNormalColor,
-                                    size: 36,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    'Feedback Received!',
-                                    style: TextStyle(
-                                      color: theme.textColorPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    'Thank you for helping us improve Asset Master. Your comments have been routed to our edge network.',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: theme.textColorSecondary,
-                                      fontSize: 11,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: TDButton(
-                                      onTap: () {
-                                        controller
-                                                .feedbackSubmittedSuccess
-                                                .value =
-                                            false;
-                                        controller.feedbackText.value = '';
-                                        controller.feedbackRating.value = 5;
-                                        controller.feedbackCategory.value =
-                                            'Feature Request';
-                                      },
-                                      size: TDButtonSize.medium,
-                                      type: TDButtonType.outline,
-                                      isBlock: true,
-                                      text: 'Submit Another Feedback',
-                                    ),
-                                  ),
-                                ],
+                              borderRadius: BorderRadius.circular(
+                                theme.radiusMap['default'] ?? 8,
+                              ),
+                              border: Border.all(
+                                color: theme.successNormalColor.withValues(
+                                  alpha: 0.3,
+                                ),
                               ),
                             ),
-                          ] else ...[
-                            Row(
+                            child: Column(
                               children: [
                                 Icon(
-                                  Icons.rate_review_outlined,
-                                  color: theme.brandNormalColor,
-                                  size: 16,
+                                  Icons.check_circle_outline_rounded,
+                                  color: theme.successNormalColor,
+                                  size: 36,
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(height: 12),
                                 Text(
-                                  'SHARE YOUR THOUGHTS',
+                                  'Feedback Received!',
                                   style: TextStyle(
                                     color: theme.textColorPrimary,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                    letterSpacing: 1.2,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  'Thank you for helping us improve Asset Master. Your comments have been routed to our edge network.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: theme.textColorSecondary,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: TDButton(
+                                    onTap: () {
+                                      controller
+                                              .feedbackSubmittedSuccess
+                                              .value =
+                                          false;
+                                      controller.feedbackText.value = '';
+                                      controller.feedbackRating.value = 5;
+                                      controller.feedbackCategory.value =
+                                          'Feature Request';
+                                    },
+                                    size: TDButtonSize.medium,
+                                    type: TDButtonType.outline,
+                                    isBlock: true,
+                                    text: 'Submit Another Feedback',
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 16),
-
-                            Text(
-                              'Rate your experience:',
-                              style: TextStyle(
-                                color: theme.textColorSecondary,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
+                          ),
+                        ] else ...[
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.rate_review_outlined,
+                                color: theme.brandNormalColor,
+                                size: 16,
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Center(
-                              child: TDRate(
-                                value: controller.feedbackRating.value
-                                    .toDouble(),
-                                size: 32.0,
-                                color: [
-                                  const Color(0xFFFBBF24),
-                                  theme.textColorPlaceholder,
-                                ],
-                                onChange: (val) {
-                                  controller.feedbackRating.value = val.toInt();
-                                },
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-
-                            Text(
-                              'Select category:',
-                              style: TextStyle(
-                                color: theme.textColorSecondary,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children:
-                                  [
-                                    'Feature Request',
-                                    'Bug Report',
-                                    'Usability',
-                                    'Other',
-                                  ].map((category) {
-                                    final isSelected =
-                                        controller.feedbackCategory.value ==
-                                        category;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        controller.feedbackCategory.value =
-                                            category;
-                                      },
-                                      child: TDTag(
-                                        category,
-                                        size: TDTagSize.medium,
-                                        shape: TDTagShape.round,
-                                        theme: isSelected
-                                            ? TDTagTheme.primary
-                                            : TDTagTheme.defaultTheme,
-                                        isOutline: !isSelected,
-                                      ),
-                                    );
-                                  }).toList(),
-                            ),
-                            const SizedBox(height: 16),
-
-                            Text(
-                              'Your comments:',
-                              style: TextStyle(
-                                color: theme.textColorSecondary,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            TDInput(
-                              maxLines: 4,
-                              type: TDInputType.longText,
-                              hintText:
-                                  'Tell us what you like or what we can improve...',
-                              onChanged: (value) =>
-                                  controller.feedbackText.value = value,
-                              textStyle: TextStyle(
-                                color: theme.textColorPrimary,
-                                fontSize: 12,
-                              ),
-                              hintTextStyle: TextStyle(
-                                color: theme.textColorPlaceholder,
-                                fontSize: 12,
-                              ),
-                              backgroundColor: Colors.transparent,
-                              showBottomDivider: false,
-                            ),
-                            const SizedBox(height: 16),
-
-                            Obx(() {
-                              final isSubmitting =
-                                  controller.isFeedbackSubmitting.value;
-                              final hasText = controller.feedbackText.value
-                                  .trim()
-                                  .isNotEmpty;
-
-                              return TDButton(
-                                onTap: (hasText && !isSubmitting)
-                                    ? () => controller.submitFeedback()
-                                    : null,
-                                size: TDButtonSize.medium,
-                                type: TDButtonType.fill,
-                                theme: TDButtonTheme.primary,
-                                isBlock: true,
-                                disabled: !hasText || isSubmitting,
-                                text: 'Submit Feedback',
-                                textStyle: const TextStyle(
+                              const SizedBox(width: 8),
+                              Text(
+                                'SHARE YOUR THOUGHTS',
+                                style: TextStyle(
+                                  color: theme.textColorPrimary,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  fontSize: 10,
+                                  letterSpacing: 1.2,
                                 ),
-                                iconWidget: isSubmitting
-                                    ? const SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    : null,
-                              );
-                            }),
-                          ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+
+                          Text(
+                            'Rate your experience:',
+                            style: TextStyle(
+                              color: theme.textColorSecondary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Center(
+                            child: TDRate(
+                              value: controller.feedbackRating.value.toDouble(),
+                              size: 32.0,
+                              color: [
+                                const Color(0xFFFBBF24),
+                                theme.textColorPlaceholder,
+                              ],
+                              onChange: (val) {
+                                controller.feedbackRating.value = val.toInt();
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          Text(
+                            'Select category:',
+                            style: TextStyle(
+                              color: theme.textColorSecondary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children:
+                                [
+                                  'Feature Request',
+                                  'Bug Report',
+                                  'Usability',
+                                  'Other',
+                                ].map((category) {
+                                  final isSelected =
+                                      controller.feedbackCategory.value ==
+                                      category;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.feedbackCategory.value =
+                                          category;
+                                    },
+                                    child: TDTag(
+                                      category,
+                                      size: TDTagSize.medium,
+                                      shape: TDTagShape.round,
+                                      theme: isSelected
+                                          ? TDTagTheme.primary
+                                          : TDTagTheme.defaultTheme,
+                                      isOutline: !isSelected,
+                                    ),
+                                  );
+                                }).toList(),
+                          ),
+                          const SizedBox(height: 16),
+
+                          Text(
+                            'Your comments:',
+                            style: TextStyle(
+                              color: theme.textColorSecondary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          TDInput(
+                            maxLines: 4,
+                            type: TDInputType.longText,
+                            hintText:
+                                'Tell us what you like or what we can improve...',
+                            onChanged: (value) =>
+                                controller.feedbackText.value = value,
+                            textStyle: TextStyle(
+                              color: theme.textColorPrimary,
+                              fontSize: 12,
+                            ),
+                            hintTextStyle: TextStyle(
+                              color: theme.textColorPlaceholder,
+                              fontSize: 12,
+                            ),
+                            backgroundColor: Colors.transparent,
+                            showBottomDivider: false,
+                          ),
+                          const SizedBox(height: 16),
+
+                          Obx(() {
+                            final isSubmitting =
+                                controller.isFeedbackSubmitting.value;
+                            final hasText = controller.feedbackText.value
+                                .trim()
+                                .isNotEmpty;
+
+                            return TDButton(
+                              onTap: (hasText && !isSubmitting)
+                                  ? () => controller.submitFeedback()
+                                  : null,
+                              size: TDButtonSize.medium,
+                              type: TDButtonType.fill,
+                              theme: TDButtonTheme.primary,
+                              isBlock: true,
+                              disabled: !hasText || isSubmitting,
+                              text: 'Submit Feedback',
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              iconWidget: isSubmitting
+                                  ? const SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : null,
+                            );
+                          }),
                         ],
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }
