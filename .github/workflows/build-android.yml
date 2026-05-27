@@ -36,9 +36,17 @@ jobs:
         run: flutter pub get
         working-directory: frontend
 
+      - name: Decode Android Keystore
+        run: echo "${{ secrets.ANDROID_RELEASE_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+        working-directory: frontend
+
       - name: Build APK
         run: flutter build apk --release --dart-define=API_BASE_URL=${{ secrets.API_BASE_URL }}
         working-directory: frontend
+        env:
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
