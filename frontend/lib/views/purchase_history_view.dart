@@ -60,31 +60,7 @@ class _PurchaseHistoryViewState extends State<PurchaseHistoryView> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          Obx(() {
-            final assets = controller.assets;
-            final searchQuery = controller.purchaseHistorySearchQuery.value
-                .toLowerCase()
-                .trim();
-            final filteredCount = assets.where((asset) {
-              return asset.symbol.toLowerCase().contains(searchQuery) ||
-                  asset.name.toLowerCase().contains(searchQuery) ||
-                  asset.broker.toLowerCase().contains(searchQuery);
-            }).length;
-
-            return Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Center(
-                child: TDTag(
-                  '$filteredCount Records',
-                  size: TDTagSize.small,
-                  theme: TDTagTheme.primary,
-                  shape: TDTagShape.round,
-                ),
-              ),
-            );
-          }),
-        ],
+        actions: [],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(color: theme.componentBorderColor, height: 1),
