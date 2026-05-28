@@ -59,17 +59,21 @@
         </t-form-item>
         <t-form-item label="Purchase Date" name="purchaseDate" class="flex-child">
           <t-input
-        v-model="form.purchaseDate"
-        borderless
-        align="right"
-        placeholder="请输入内容"
-        @click="form.purchaseDateVis = true"
-      ></t-input>
-         <t-popup v-model="from.purchaseDateVis" placement="bottom">
-          <t-date-time-picker 
-      :mode="['date']"
-      format="YYYY-MM-DD" v-model="form.purchaseDate" placeholder="Select date" style="width: 100%" />
-         </t-popup >
+            v-model="form.purchaseDate"
+            borderless
+            align="right"
+            placeholder="Select date"
+            @click="form.purchaseDateVis = true"
+          ></t-input>
+          <t-popup v-model="form.purchaseDateVis" placement="bottom">
+            <t-date-time-picker 
+              :mode="['date']"
+              format="YYYY-MM-DD" 
+              v-model="form.purchaseDate" 
+              placeholder="Select date" 
+              style="width: 100%" 
+            />
+          </t-popup>
 
         </t-form-item>
 
@@ -162,7 +166,8 @@ watch(() => props.visible, (val) => {
         quantity: props.asset.quantity,
         purchasePrice: props.asset.purchasePrice || props.asset.purchase_price,
         broker: props.asset.broker,
-        purchaseDate: props.asset.purchaseDate ? new Date(props.asset.purchaseDate).toISOString().split('T')[0] : ''
+        purchaseDate: props.asset.purchaseDate ? new Date(props.asset.purchaseDate).toISOString().split('T')[0] : '',
+        purchaseDateVis: false
       }
     } else {
       // Clear for new holding
@@ -172,7 +177,8 @@ watch(() => props.visible, (val) => {
         quantity: 1,
         purchasePrice: 0,
         broker: 'Other',
-        purchaseDate: new Date().toISOString().split('T')[0]
+        purchaseDate: new Date().toISOString().split('T')[0],
+        purchaseDateVis: false
       }
     }
   }
