@@ -1,0 +1,7 @@
+name = "asset-master"
+compatibility_date = "2025-05-28"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "asset-master-db"
+database_id = "local-dev-db"
