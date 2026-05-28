@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper">
-    <t-card class="login-card" bordered>
+    <Card class="login-card" bordered>
       <div class="card-header">
         <h1 class="logo-title font-outfit">ASSET MASTER</h1>
         <p class="subtitle">Wealth & Portfolio Ledger</p>
@@ -64,15 +64,15 @@
           </t-form>
         </t-tab-panel>
       </t-tabs>
-    </t-card>
+    </Card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { MessagePlugin } from 'tdesign-mobile-vue'
 import { MailIcon, LockOnIcon, UserIcon } from 'tdesign-icons-vue-next'
-import type { SubmitContext } from 'tdesign-vue-next'
+import type { SubmitContext } from 'tdesign-mobile-vue'
 import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({

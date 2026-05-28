@@ -1,5 +1,5 @@
 <template>
-  <t-card class="chart-card" bordered>
+  <Card class="chart-card" bordered>
     <div class="chart-header">
       <div class="title">Valuation Trend (30D)</div>
       <div class="subtitle">Historical portfolio value over time</div>
@@ -10,7 +10,7 @@
         <div v-else class="empty-state">No historical data available.</div>
       </ClientOnly>
     </div>
-  </t-card>
+  </Card>
 </template>
 
 <script setup lang="ts">

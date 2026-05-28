@@ -1,5 +1,5 @@
 <template>
-  <t-card class="table-card" bordered>
+  <Card class="table-card" bordered>
     <div class="card-header">
       <h3 class="card-title">Holdings Ledger</h3>
       <t-button theme="primary" @click="$emit('add-asset')">
@@ -64,7 +64,7 @@
       <!-- Custom profitLossPercentage cell -->
       <template #profitLossPercentage="{ row }">
         <span :class="plClass(row.profitLoss)">
-          {{ row.profitLoss > 0 ? '+' : '' }}{{ row.profitLossPercentage.toFixed(2) }}%
+          {{ row.profitLoss > 0 ? '+' : '' }}{{ row.profitLossPercentage?.toFixed(2) }}%
         </span>
       </template>
 
@@ -72,8 +72,8 @@
       <template #weightPercentage="{ row }">
         <t-progress 
           theme="line" 
-          :percentage="Number(row.weightPercentage.toFixed(1))" 
-          :label="`${row.weightPercentage.toFixed(1)}%`"
+          :percentage="Number(row.weightPercentage?.toFixed(1))" 
+          :label="`${row.weightPercentage?.toFixed(1)}%`"
           size="small"
         />
       </template>
@@ -97,7 +97,7 @@
         </t-space>
       </template>
     </t-table>
-  </t-card>
+  </Card>
 </template>
 
 <script setup lang="ts">

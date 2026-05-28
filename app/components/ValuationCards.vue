@@ -1,21 +1,21 @@
 <template>
   <div class="valuation-cards-grid">
     <!-- Total Value Card -->
-    <t-card class="val-card" bordered>
+    <Card class="val-card" bordered>
       <div class="val-label">Total Value</div>
       <div class="val-amount font-outfit">{{ formatCurrency(valuation?.totalCurrentValue || 0, currency) }}</div>
       <div class="val-sub">Aggregated Current Value</div>
-    </t-card>
+    </Card>
 
     <!-- Total Cost Basis Card -->
-    <t-card class="val-card" bordered>
+    <Card class="val-card" bordered>
       <div class="val-label">Cost Basis</div>
       <div class="val-amount font-outfit">{{ formatCurrency(valuation?.totalCostBasis || 0, currency) }}</div>
       <div class="val-sub">Total Capital Invested</div>
-    </t-card>
+    </Card>
 
     <!-- Total P&L Card with Dynamic Borders -->
-    <t-card 
+    <Card 
       class="val-card"
       :class="plStatusClass"
       bordered
@@ -34,7 +34,7 @@
         <component :is="TrendArrowIcon" v-if="valuation?.totalProfitLoss !== 0" :style="{ marginRight: '4px' }" />
         {{ valuation?.totalProfitLossPercentage !== undefined ? valuation.totalProfitLossPercentage.toFixed(2) : '0.00' }}%
       </div>
-    </t-card>
+    </Card>
   </div>
 </template>
 

@@ -9,14 +9,12 @@ export default defineNuxtConfig({
   ],
 
   css: [
-    'tdesign-vue-next/es/style/index.css',
     'tdesign-mobile-vue/es/navbar/style/index.css',
     'tdesign-mobile-vue/es/tab-bar/style/index.css',
-    '~/assets/css/main.css',
   ],
 
   build: {
-    transpile: ['tdesign-vue-next', 'tdesign-icons-vue-next', 'tdesign-mobile-vue']
+    transpile: ['tdesign-icons-vue-next', 'tdesign-mobile-vue']
   },
 
   vite: {

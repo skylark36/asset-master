@@ -3,10 +3,7 @@
     <!-- Top Stats Cards -->
     <ValuationCards :valuation="portfolioStore.valuation" :currency="portfolioStore.selectedPortfolio?.currency || 'USD'" />
 
-    <!-- Main Grid Section -->
-    <div class="dashboard-grid">
-      <!-- Left side: holdings table & trend chart -->
-      <div class="grid-left">
+
         <AssetTable
           :holdings="portfolioStore.assets"
           :base-currency="portfolioStore.selectedPortfolio?.currency || 'USD'"
@@ -14,17 +11,6 @@
           @edit-asset="openEditAsset"
           @delete-asset="handleDeleteAsset"
         />
-
-        <TrendChart :trend-data="portfolioStore.trendData" :currency="portfolioStore.selectedPortfolio?.currency || 'USD'" />
-      </div>
-
-      <!-- Right side: filter panel & allocation chart -->
-      <div class="grid-right">
-        <BrokerFilter />
-        
-        <AllocationChart :holdings="portfolioStore.assets" />
-      </div>
-    </div>
 
     <!-- Add/Edit Asset Dialog -->
     <AddAssetDialog
@@ -37,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { MessagePlugin } from 'tdesign-mobile-vue'
 import { usePortfolioStore } from '~/stores/portfolio'
 
 const portfolioStore = usePortfolioStore()

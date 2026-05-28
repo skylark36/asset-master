@@ -4,7 +4,7 @@
       <!-- Left side: Portfolio management -->
       <div class="grid-col">
         <!-- Active Portfolio Info & Currency Update -->
-        <t-card class="section-card" title="Portfolio Settings" bordered>
+        <Card class="section-card" title="Portfolio Settings" bordered>
           <t-form label-align="top" class="form-spacing">
             <t-form-item label="Active Portfolio">
               <t-input :value="portfolioStore.selectedPortfolio?.name" disabled />
@@ -25,10 +25,10 @@
               </t-select>
             </t-form-item>
           </t-form>
-        </t-card>
+        </Card>
 
         <!-- Create Portfolio -->
-        <t-card class="section-card" title="Create New Portfolio" bordered>
+        <Card class="section-card" title="Create New Portfolio" bordered>
           <t-form :model="newPort" :rules="newPortRules" ref="newPortForm" @submit="handleCreatePortfolio" label-align="top">
             <t-form-item label="Portfolio Name" name="name">
               <t-input v-model="newPort.name" placeholder="e.g. Crypto Ledger" />
@@ -50,12 +50,12 @@
               </t-button>
             </div>
           </t-form>
-        </t-card>
+        </Card>
       </div>
 
       <!-- Right side: Feedback Form -->
       <div class="grid-col">
-        <t-card class="section-card" title="Submit Feedback" subtitle="Report bugs or request new features. Feedback is synced to Cloudflare D1." bordered>
+        <Card class="section-card" title="Submit Feedback" subtitle="Report bugs or request new features. Feedback is synced to Cloudflare D1." bordered>
           <t-alert 
             v-if="portfolioStore.feedbackSubmittedSuccess" 
             theme="success" 
@@ -96,7 +96,7 @@
               </t-button>
             </div>
           </t-form>
-        </t-card>
+        </Card>
       </div>
     </div>
   </div>
@@ -104,8 +104,8 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import type { SubmitContext } from 'tdesign-vue-next'
+import { MessagePlugin } from 'tdesign-mobile-vue'
+import type { SubmitContext } from 'tdesign-mobile-vue'
 import { usePortfolioStore } from '~/stores/portfolio'
 
 const portfolioStore = usePortfolioStore()

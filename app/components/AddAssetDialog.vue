@@ -6,7 +6,7 @@
     cancel-btn="Cancel"
     @confirm="handleSubmit"
     destroy-on-close
-    width="500px"
+
   >
     <t-form :model="form" :rules="rules" ref="formRef" label-align="top">
       <!-- Search Symbol -->
@@ -38,10 +38,10 @@
       <!-- Quantity & Purchase Price side-by-side -->
       <div class="row-flex">
         <t-form-item label="Quantity" name="quantity" class="flex-child">
-          <t-input-number v-model="form.quantity" :min="0.0001" :step="1" placeholder="0.0" style="width: 100%" />
+          <t-input v-model="form.quantity" type="number"  placeholder="0.0" style="width: 100%" />
         </t-form-item>
         <t-form-item label="Purchase Price (Local)" name="purchasePrice" class="flex-child">
-          <t-input-number v-model="form.purchasePrice" :min="0.01" :step="0.01" placeholder="0.00" style="width: 100%" />
+          <t-input v-model="form.purchasePrice" type="number"  placeholder="0.0"style="width: 100%" />
         </t-form-item>
       </div>
 
@@ -58,8 +58,21 @@
           </t-select>
         </t-form-item>
         <t-form-item label="Purchase Date" name="purchaseDate" class="flex-child">
-          <t-date-picker v-model="form.purchaseDate" placeholder="Select date" style="width: 100%" />
+          <t-input
+        v-model="form.purchaseDate"
+        borderless
+        align="right"
+        placeholder="请输入内容"
+        @click="form.purchaseDateVis = true"
+      ></t-input>
+         <t-popup v-model="from.purchaseDateVis" placement="bottom">
+          <t-date-time-picker 
+      :mode="['date']"
+      format="YYYY-MM-DD" v-model="form.purchaseDate" placeholder="Select date" style="width: 100%" />
+         </t-popup >
+
         </t-form-item>
+
       </div>
     </t-form>
   </t-dialog>
@@ -67,8 +80,8 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import type { FormInstanceFunctions } from 'tdesign-vue-next'
+import { MessagePlugin } from 'tdesign-mobile-vue'
+import type { FormInstanceFunctions } from 'tdesign-mobile-vue'
 import { usePortfolioStore } from '~/stores/portfolio'
 import { useAssetSearch } from '~/composables/useAssetSearch'
 
@@ -95,7 +108,8 @@ const form = ref({
   quantity: 1,
   purchasePrice: 0,
   broker: 'Other',
-  purchaseDate: ''
+  purchaseDate: '',
+  purchaseDateVis: false,
 })
 
 const rules = {

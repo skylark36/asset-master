@@ -1,5 +1,5 @@
 <template>
-  <t-card class="broker-filter-card" bordered>
+  <Card class="broker-filter-card" bordered>
     <div class="section-title">Broker Filtering</div>
     
     <!-- Select Broker Filter -->
@@ -50,7 +50,7 @@
         </t-input>
       </div>
     </div>
-  </t-card>
+  </Card>
 </template>
 
 <script setup lang="ts">

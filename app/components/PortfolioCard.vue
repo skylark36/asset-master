@@ -1,5 +1,5 @@
 <template>
-  <t-card class="portfolio-detail-card" :title="portfolio?.name" :subtitle="portfolio?.description" bordered>
+  <Card class="portfolio-detail-card" :title="portfolio?.name" :subtitle="portfolio?.description" bordered>
     <template #actions>
       <t-tag theme="primary" variant="light">{{ portfolio?.currency }}</t-tag>
     </template>
@@ -13,7 +13,7 @@
         <span class="meta-val font-outfit">{{ assetCount }}</span>
       </div>
     </div>
-  </t-card>
+  </Card>
 </template>
 
 <script setup lang="ts">

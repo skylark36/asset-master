@@ -1,5 +1,5 @@
 <template>
-  <t-card class="chart-card" bordered>
+  <Card class="chart-card" bordered>
     <div class="chart-header">Asset Allocation</div>
     <div class="chart-container">
       <ClientOnly>
@@ -7,7 +7,7 @@
         <div v-else class="empty-state">No holdings to display.</div>
       </ClientOnly>
     </div>
-  </t-card>
+  </Card>
 </template>
 
 <script setup lang="ts">

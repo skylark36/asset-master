@@ -1,6 +1,6 @@
 <template>
   <!-- Mobile Platform Layout using tdesign-mobile-vue -->
-  <div v-if="authStore.isLoggedIn && isMobile" class="mobile-layout">
+  <div v-if="authStore.isLoggedIn" class="mobile-layout">
     <!-- Mobile NavBar -->
     <m-navbar :title="pageTitle" class="mobile-header">
       <template #right>
@@ -23,77 +23,6 @@
       </m-tab-bar-item>
     </m-tab-bar>
   </div>
-
-  <!-- Desktop Layout using tdesign-vue-next -->
-  <t-layout class="app-layout" v-else-if="authStore.isLoggedIn && !isMobile">
-    <!-- Sidebar -->
-    <t-aside class="sidebar-aside">
-      <t-menu theme="dark" :value="activeMenu" class="sidebar-menu">
-        <template #logo>
-          <div class="logo-area">
-            <span class="brand-gradient-text brand-name">ASSET MASTER</span>
-          </div>
-        </template>
-        
-        <!-- Menu Items -->
-        <t-menu-item value="dashboard" @click="navigateTo('/')">
-          <template #icon><dashboard-icon /></template>
-          Dashboard
-        </t-menu-item>
-        <t-menu-item value="settings" @click="navigateTo('/profile')">
-          <template #icon><setting-icon /></template>
-          Settings
-        </t-menu-item>
-
-        <!-- Dynamic Portfolio List inside sidebar menu -->
-        <div class="portfolio-switcher-section">
-          <div class="switcher-title">Portfolios</div>
-          <t-select
-            v-model="activePortfolioId"
-            placeholder="Select Portfolio"
-            size="small"
-            class="port-selector"
-            @change="handlePortfolioChange"
-          >
-            <t-option
-              v-for="p in portfolioStore.portfolios"
-              :key="p.id"
-              :value="p.id"
-              :label="p.name"
-            />
-          </t-select>
-        </div>
-      </t-menu>
-    </t-aside>
-
-    <!-- Main Content Area -->
-    <t-layout class="main-layout">
-      <t-header class="app-header">
-        <div class="header-left">
-          <h2 class="page-title">{{ pageTitle }}</h2>
-        </div>
-        <div class="header-right">
-          <t-space size="medium" align="center">
-            <!-- Theme Toggle -->
-            <theme-toggle />
-            
-            <!-- User Dropdown -->
-            <t-dropdown :options="dropdownOptions" @click="handleDropdownClick">
-              <t-button variant="text" class="user-profile-btn">
-                <template #icon><user-icon /></template>
-                {{ authStore.user?.name || 'User' }}
-              </t-button>
-            </t-dropdown>
-          </t-space>
-        </div>
-      </t-header>
-
-      <!-- Page Content -->
-      <t-content class="app-content">
-        <slot />
-      </t-content>
-    </t-layout>
-  </t-layout>
 
   <!-- Render slot directly for login/register pages without layout wrapper -->
   <div v-else class="auth-layout-container">
